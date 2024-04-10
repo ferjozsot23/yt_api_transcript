@@ -15,7 +15,7 @@ async function getVideosId(): Promise<(string | null | undefined)[]> {
       return [];
     } else {
       return response.data.items.map((item) =>
-        !item.id ? "" : item.id.videoId
+        item.id ? item.id.videoId : ""
       );
     }
   } catch (err) {
