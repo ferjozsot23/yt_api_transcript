@@ -8,7 +8,7 @@ async function getVideosId(): Promise<(string | null | undefined)[]> {
       channelId: STACKBUILDERS_ID,
       fields: "items/id/videoId",
       maxResults: MAX_RESULTS,
-      type: ["d"],
+      type: ["items/id/videoId"],
       videoDuration: "any",
     });
     if (!response.data.items) {
