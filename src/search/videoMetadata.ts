@@ -1,7 +1,7 @@
 import getVideosId from "./videoIds.ts";
 import client from "../api/client.ts";
-
-async function getVideosMetadata() {
+import { Video } from "../models/Video.ts";
+async function getVideosMetadata(): Promise<Video[]> {
   const videosIdArray = await getVideosId();
 
   const filteredVideosIdArray: string[] = videosIdArray.filter(
@@ -19,10 +19,10 @@ async function getVideosMetadata() {
     } else {
       const videosMetadata = response.data.items.map(
         ({ id, snippet, statistics }) => ({
-          videoId: id,
-          publishedAt: snippet ? snippet.publishedAt : "",
-          likeCount: statistics ? statistics.likeCount : 0,
-          viewCount: statistics ? statistics.viewCount : 0,
+          videoId: id ?? "",
+          publishedAt: (snippet && snippet.publishedAt) ?? "",
+          likeCount: (typeof statistics?.likeCount === 'number' ? statistics.likeCount : 0),
+          viewCount: (typeof statistics?.viewCount === 'number' ? statistics.viewCount : 0),
         })
       );
       return videosMetadata;
