@@ -1,7 +1,7 @@
 import getVideosId from "./videoIds.ts";
 import client from "../api/client.ts";
-
-async function getVideosMetadata() {
+import {Video} from "../models/Video.ts"
+async function getVideosMetadata() : Promise<(Video | null | undefined)[]> {
   const videosIdArray = await getVideosId();
 
   const filteredVideosIdArray: string[] = videosIdArray.filter(
